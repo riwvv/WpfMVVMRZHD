@@ -5,8 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfMVVMRZHD.Views.Windows"
         mc:Ignorable="d"
-        Title="AdminWindow" Height="450" Width="800">
+        Title="AdminWindow" Height="600" Width="1200">
+    <Window.Resources>
+        <Style x:Name="BtStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="MediumVioletRed" CornerRadius="10" Padding="10 5" Margin="5">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"
+                                          TextBlock.Foreground="WhiteSmoke" TextBlock.FontSize="18"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Black"/>
+                                <Setter TargetName="border" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <Button Command="{Binding NavigateToScheduleCommand}" Content="Расписание"/>
+            <Button Command="{Binding NavigateToAddScheduleCommand}" Content="Добавить"/>
+        </StackPanel>
+        <Frame NavigationUIVisibility="Hidden" Grid.Column="1" Content="{Binding CurrentPage}"/>
     </Grid>
 </Window>

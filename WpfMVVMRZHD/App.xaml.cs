@@ -27,6 +27,7 @@ public partial class App : Application {
             services.AddSingleton<MyPurchasesViewModel>();
             services.AddSingleton<PurchasesViewModel>();
             services.AddSingleton<ScheduleViewModel>();
+            services.AddSingleton<AdminScheduleViewModel>();
 
             services.AddSingleton<LogWindow>();
             services.AddSingleton<UserWindow>();
@@ -34,6 +35,7 @@ public partial class App : Application {
             
             services.AddSingleton<AddSchedulePage>();
             services.AddSingleton<SchedulePage>();
+            services.AddSingleton<AdminSchedulePage>();
             services.AddSingleton<DataPassportPage>();
             services.AddSingleton<MyPurchasesPage>();
             services.AddSingleton<PurchasesPage>();

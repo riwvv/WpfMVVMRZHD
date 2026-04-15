@@ -7,8 +7,81 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DataPassportPage">
-
-    <Grid>
+    <Page.Resources>
+        <Style x:Name="BtStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="MediumVioletRed" CornerRadius="10" Padding="10 5" Margin="5">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" TextBlock.Foreground="WhiteSmoke" TextBlock.FontSize="18"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Black"/>
+                                <Setter TargetName="border" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Name="TbStyle" TargetType="TextBox">
+            <Setter Property="Padding" Value="10 5"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border" Background="White" CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                      Background="Transparent"
+                                      Margin="{TemplateBinding Padding}"
+                                      VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollBarVisibility="Auto"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Gray"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Blue"/>
+                                <Setter TargetName="border" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="10 0 0 0"/>
+        </Style>
+    </Page.Resources>
+    <Grid Background="WhiteSmoke">
+        <StackPanel>
+            <StackPanel>
+                <TextBlock Text="Серия паспорта"/>
+                <TextBox IsEnabled="{Binding HasSend}" Text="{Binding Series}"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Номер паспорта"/>
+                <TextBox IsEnabled="{Binding HasSend}" Text="{Binding Number}"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Имя"/>
+                <TextBox IsEnabled="{Binding HasSend}" Text="{Binding First}"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Фамилия"/>
+                <TextBox IsEnabled="{Binding HasSend}" Text="{Binding Last}"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Отчество"/>
+                <TextBox IsEnabled="{Binding HasSend}" Text="{Binding Middle}"/>
+            </StackPanel>
+            <Button Command="{Binding SendPassportDataCommand}" IsEnabled="{Binding HasSend}" Content="Отправить"/>
+        </StackPanel>
         
     </Grid>
 </Page>

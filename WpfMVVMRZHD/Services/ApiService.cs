@@ -40,11 +40,11 @@ public class ApiService : IApiService {
                 return newUser;
             }
             MessageBox.Show($"Не получилось зарегистрировать пользователя: {response.StatusCode}");
-            return new User();
+            return null;
         }
         catch (Exception ex) {
             MessageBox.Show($"Ошибка регистрации: {ex.Message}");
-            return new User();
+            return null;
         }
     }
 
@@ -79,6 +79,57 @@ public class ApiService : IApiService {
         catch (Exception ex) {
             MessageBox.Show($"Ошибка: {ex.Message}");
             return new List<Station>();
+        }
+    }
+
+    public async Task<Passport_datum> GetPassportDataAsync(string login) {
+        try {
+            var response = await _httpClient.GetAsync($"api/PassportData/{login}");
+            if (response.IsSuccessStatusCode) {
+                var json = await response.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<Passport_datum>(json);
+                return data;
+            }
+            return new Passport_datum();
+        }
+        catch (Exception ex) {
+            MessageBox.Show($"Ошибка: {ex.Message}");
+            return new Passport_datum();
+        }
+    }
+
+    public async Task<Passport_datum> SendPassportDataAsync(Passport_datum passport) {
+        try {
+            var content = new StringContent(JsonConvert.SerializeObject(passport), Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync("api/PassportData", content);
+            if (response.IsSuccessStatusCode) {
+                var json = await response.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<Passport_datum>(json);
+                return data;
+            }
+            MessageBox.Show($"Ошибка отправки данных: {response.StatusCode}");
+            return new Passport_datum();
+        }
+        catch (Exception ex) {
+            MessageBox.Show($"Ошибка: {ex.Message}");
+            return new Passport_datum();
+        }
+    }
+
+    public async Task<List<Schedule>> SearchSchedulesAsync(Schedule schedule, DateTime? date = null) {
+        try {
+            var content = new StringContent(JsonConvert.SerializeObject(schedule), Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync(date == null ? $"api/Schedules/" : $"api/Schedules/?returnDate={date.Value.Date.ToString("yyyy-MM-dd")}", content);
+            if (response.IsSuccessStatusCode) {
+                var json = await response.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<List<Schedule>>(json);
+                return data;
+            }
+            return new List<Schedule>();
+        }
+        catch (Exception ex) {
+            MessageBox.Show($"Ошибка: {ex.Message}");
+            return new List<Schedule>();
         }
     }
 }
