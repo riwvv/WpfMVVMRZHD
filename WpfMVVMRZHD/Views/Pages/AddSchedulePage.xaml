@@ -5,10 +5,67 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfMVVMRZHD.Views.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="1000"
       Title="AddSchedulePage">
-
-    <Grid>
-        
+    <Page.Resources>
+        <Style x:Name="BtStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="MediumVioletRed" CornerRadius="10" Padding="50 10" Margin="5">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"
+                                  TextBlock.Foreground="WhiteSmoke" TextBlock.FontSize="32"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Black"/>
+                                <Setter TargetName="border" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid Background="WhiteSmoke">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.ColumnSpan="2" Text="Создайте новую запись" HorizontalAlignment="Center" FontSize="32" FontWeight="Medium" Margin="10"/>
+        <StackPanel Grid.Row="1" Margin="5">
+            <TextBlock Text="Станция отправления" FontSize="24"/>
+            <ComboBox ItemsSource="{Binding Stations}" SelectedItem="{Binding DepartureStation}" DisplayMemberPath="Name" FontSize="24" Margin="0 5 0 0"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Margin="5">
+            <TextBlock Text="Станция прибытия" FontSize="24"/>
+            <ComboBox ItemsSource="{Binding Stations}" SelectedItem="{Binding ArrivalStation}" DisplayMemberPath="Name" FontSize="24" Margin="0 5 0 0"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Margin="5">
+            <TextBlock Text="Кол-во свободных мест" FontSize="24"/>
+            <TextBox Text="{Binding NumberSeats}" FontSize="24" Margin="0 5 0 0"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="1" Margin="5">
+            <TextBlock Text="Дата и время отправления" FontSize="24"/>
+            <TextBox Text="{Binding DepartureDate}" FontSize="24" Margin="0 5 0 0"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="2" Margin="5">
+            <TextBlock Text="Дата и время прибытия" FontSize="24"/>
+            <TextBox Text="{Binding ArrivalDate}" FontSize="24" Margin="0 5 0 0"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="3" Margin="5">
+            <TextBlock Text="Цена билета" FontSize="24"/>
+            <TextBox Text="{Binding Price}" FontSize="24" Margin="0 5 0 0"/>
+        </StackPanel>
+        <Button Grid.Row="4" Grid.ColumnSpan="2" Command="{Binding SendDataCommand}" Content="Создать" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Medium" Margin="20"/>
+        <TextBlock Grid.Row="5" Grid.ColumnSpan="2" Text="{Binding ErrorMessage}" FontSize="14" FontWeight="Medium" Foreground="{Binding ColorMessage}"/>
     </Grid>
 </Page>

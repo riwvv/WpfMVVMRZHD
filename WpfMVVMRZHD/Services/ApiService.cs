@@ -132,4 +132,25 @@ public class ApiService : IApiService {
             return new List<Schedule>();
         }
     }
+
+    public async Task<bool> CreateScheduleAsync(Schedule schedule) {
+        try {
+            var settings = new JsonSerializerSettings {
+                DateFormatString = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'",
+                DateTimeZoneHandling = DateTimeZoneHandling.Utc
+            };
+
+            var content = new StringContent(JsonConvert.SerializeObject(schedule, settings), Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync("api/Schedules/new", content);
+            if (response.IsSuccessStatusCode) {
+                return true;
+            }
+            MessageBox.Show($"Не удалось создать запись: {response.StatusCode}");
+            return false;
+        }
+        catch (Exception ex) {
+            MessageBox.Show($"Ошибка: {ex.Message}");
+            return false;
+        }
+    }
 }

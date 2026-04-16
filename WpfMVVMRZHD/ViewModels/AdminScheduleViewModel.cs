@@ -10,11 +10,12 @@ public partial class AdminScheduleViewModel : ObservableObject {
     private ObservableCollection<Schedule> _currentSchedule;
 
     private readonly IApiService _apiService;
-
+    public Action OnAddSchedule;
     public AdminScheduleViewModel(IApiService apiService) {
         _apiService = apiService;
         CurrentSchedule = [];
         LoadSchedule();
+        OnAddSchedule += LoadSchedule;
     }
 
     private async void LoadSchedule() {

@@ -7,25 +7,6 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1000"
       Title="AdminSchedulePage">
-    <Page.Resources>
-        <Style x:Name="BtStyle" TargetType="Button">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border x:Name="border" Background="MediumVioletRed" CornerRadius="10" Padding="10 5" Margin="5">
-                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" TextBlock.Foreground="WhiteSmoke" TextBlock.FontSize="18"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="BorderBrush" Value="Black"/>
-                                <Setter TargetName="border" Property="BorderThickness" Value="2"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Page.Resources>
     <Grid>
         <ListView ItemsSource="{Binding CurrentSchedule}" BorderBrush="Transparent">
             <ListView.ItemTemplate>
@@ -33,7 +14,6 @@
                     <Border Background="WhiteSmoke" CornerRadius="10" Padding="20 10" Margin="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
@@ -67,7 +47,6 @@
                                 <TextBlock Text="Цена: "/>
                                 <TextBlock Text="{Binding Ticket_price, StringFormat={}{0:F2} руб.}"/>
                             </StackPanel>
-                            <Button Margin="5 0 0 0" Grid.Column="4" Content="Купить" VerticalAlignment="Center"/>
                         </Grid>
                     </Border>
                 </DataTemplate>
